@@ -1,0 +1,11 @@
+# LIST YOUR APT PACKAGES HERE
+gnupg2
+curl
+lsb-core
+libjpeg-turbo8
+# Pangolin dependencies
+libgl1-mesa-dev
+libglew-dev
+libpython2.7-dev
+apt-transport-https
+software-properties-common
