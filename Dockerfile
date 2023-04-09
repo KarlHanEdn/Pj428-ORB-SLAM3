@@ -55,12 +55,12 @@ COPY ./dependencies-py3.txt "${REPO_PATH}/"
 RUN pip3 install -r ${REPO_PATH}/dependencies-py3.txt
 
 
-RUN curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-RUN add-apt-repository "deb https://download.sublimetext.com/ apt/stable/"
-RUN apt update
-RUN apt install -y sublime-text
+# RUN curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+# RUN add-apt-repository "deb https://download.sublimetext.com/ apt/stable/"
+# RUN apt update
+# RUN apt install -y sublime-text
 
-RUN apt-get install -y libgtk-3-dev
+# RUN apt-get install -y libgtk-3-dev
 
 # RUN cd /tmp && git clone https://github.com/opencv/opencv.git && \
 #     cd opencv && \
@@ -70,37 +70,37 @@ RUN apt-get install -y libgtk-3-dev
 #     make -j$nproc && make install && \
 #     cd / && rm -rf /tmp/opencv
 
-# # Build Pangolin
-RUN cd /tmp && git clone https://github.com/stevenlovegrove/Pangolin && \
-    cd Pangolin && git checkout v0.6 && mkdir build && cd build && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-std=c++11 .. && \
-    make -j$nproc && make install && \
-    cd / && rm -rf /tmp/Pangolin
+# # # Build Pangolin
+# RUN cd /tmp && git clone https://github.com/stevenlovegrove/Pangolin && \
+#     cd Pangolin && git checkout v0.6 && mkdir build && cd build && \
+#     cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-std=c++11 .. && \
+#     make -j$nproc && make install && \
+#     cd / && rm -rf /tmp/Pangolin
 
-# Build ORB_SLAM3
-RUN cd /tmp && git clone https://github.com/KarlHanEdn/ORB_SLAM3_ROS.git ORB_SLAM3 && \
-    echo "export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/tmp" > ~/.bashrc && \
-    cd ORB_SLAM3 && \
-    chmod +x build.sh && \
-    ./build.sh && \
-    cd /
+# # Build ORB_SLAM3
+# RUN cd /tmp && git clone https://github.com/KarlHanEdn/ORB_SLAM3_ROS.git ORB_SLAM3 && \
+#     echo "export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/tmp" > ~/.bashrc && \
+#     cd ORB_SLAM3 && \
+#     chmod +x build.sh && \
+#     ./build.sh && \
+#     cd /
 
 
-# # copy the source code
-# COPY ./packages "${REPO_PATH}/packages"
+# copy the source code
+COPY ./packages "${REPO_PATH}/packages"
 
-# # build packages
-# RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
-#   catkin build \
-#     --workspace ${CATKIN_WS_DIR}/
+# build packages
+RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
+  catkin build \
+    --workspace ${CATKIN_WS_DIR}/
 
-# # install launcher scripts
-# COPY ./launchers/. "${LAUNCH_PATH}/"
-# COPY ./launchers/default.sh "${LAUNCH_PATH}/"
-# RUN dt-install-launchers "${LAUNCH_PATH}"
+# install launcher scripts
+COPY ./launchers/. "${LAUNCH_PATH}/"
+COPY ./launchers/default.sh "${LAUNCH_PATH}/"
+RUN dt-install-launchers "${LAUNCH_PATH}"
 
-# # define default command
-# CMD ["bash", "-c", "dt-launcher-${DT_LAUNCHER}"]
+# define default command
+CMD ["bash", "-c", "dt-launcher-${DT_LAUNCHER}"]
 
 # store module metadata
 LABEL org.duckietown.label.module.type="${REPO_NAME}" \
