@@ -1,1 +1,3 @@
 # LIST YOUR PYTHON3 PACKAGES HERE
+adafruit-circuitpython-mpu6050
+py-imu-mpu6050

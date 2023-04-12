@@ -21,6 +21,22 @@ def write_float(server, fv):
     server.stdin.write(struct.pack('<f', fv))
 
 
+def write_double(server, dv):
+    server.stdin.write(struct.pack('<d', dv))
+
+
+def write_imu_point_array(server, imu_arr):
+    """
+    imu_arr is an array [(acc0, gyro0, timestamp0), (acc1, ...), ...] with numpy float32 arrays acci and gyroi, and a double typed timestampi
+    """
+    write_uint32(server, len(imu_arr))
+    for imu_point in imu_arr:
+        acc, gyro, timestamp = imu_point
+        server.stdin.write(np.getbuffer(acc))
+        server.stdin.write(np.getbuffer(gyro))
+        write_double(server, timestamp)
+
+
 def read_im(server):
     len_data = server.stdout.read(4)
     len_im = struct.unpack('<I', len_data)[0]

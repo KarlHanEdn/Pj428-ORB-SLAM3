@@ -13,6 +13,7 @@ dt-launchfile-init
 # NOTE: Use `dt-exec COMMAND` to run the main process (blocking process)
 
 # launching app
+dt-exec roslaunch deadreckoning deadreckoning_node.launch veh:="$VEHICLE_NAME"
 dt-exec roslaunch slam_node slam_node.launch veh:="$VEHICLE_NAME"
 
 # ----------------------------------------------------------------------------
