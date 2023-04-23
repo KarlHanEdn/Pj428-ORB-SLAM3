@@ -1,28 +1,15 @@
-# Template: CRA1
+# Compiling the C++ binary
+This repo does not contain the original source code for the ORB-SLAM C++ binary (which is inside packages/slam_node/src/ and named orb_slam_server), but assumes the program is already compiled in another repository.
 
-This template provides a boilerplate repository
-for developing CRA1 exercise.
+# Getting large files from Google Drive
+Due to file size limits the libraries and ORBvoc.txt files can't be placed inside this repo. I have packed the entire repo on my google drive folder instead: https://drive.google.com/drive/folders/1t0Ybwq3VYVytOJXkouMso00pHGD_Sf_8
 
-
-## How to use it
-
-### 1. Fork this repository
-
-Use the fork button in the top-right corner of the github page to fork this template repository.
-
-
-### 2. Create a new repository
-
-Create a new repository on github.com while
-specifying the newly forked template repository as
-a template for your new repository.
-
-
-### 3. Place your code
-
-Edit the code in `augmented_reality_apriltag.py` the augmented_reality_apriltag package.
-
-
-### 5. Try your code
-
-Build and run your code using `dts devel` or `docker` commands.
+# Running The Code
+The set up here is similar to how we run the code in cmput 412. To build the code
+```
+dts devel build -f
+```
+To run the code remotely on laptop and connect to the robot 'csc229XX':
+```
+dts devel run -R csc229XX
+```
