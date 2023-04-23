@@ -93,7 +93,7 @@ class SLAMNode(DTROS):
         # how to decode compressed image
         # reference: http://wiki.ros.org/rospy_tutorials/Tutorials/WritingImagePublisherSubscriber
         self.im_count += 1
-        if self.im_count % 1 == 0:
+        if self.im_count % 2 == 0:
             timestamp = rospy.Time.now().to_sec()
             compressed_image = np.frombuffer(msg.data, np.uint8)
             im = cv2.imdecode(compressed_image, cv2.IMREAD_COLOR)

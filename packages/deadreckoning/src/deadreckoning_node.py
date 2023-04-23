@@ -16,6 +16,7 @@ from tf import transformations as tr
 from deadreckoning.srv import updatepos
 from std_msgs.msg import String
 import json
+import numpy as np
 
 
 class DeadReckoningNode(DTROS):
@@ -66,7 +67,7 @@ class DeadReckoningNode(DTROS):
         self.y = 0.0
         self.z = 0.0
         self.yaw = 0.0
-        self.q = [0.0, 0.0, 0.0, 1.0]
+        self.q = np.array([0.0, 0.0, 0.0, 1.0], dtype=np.float32)
         self.tv = 0.0
         self.rv = 0.0
 
